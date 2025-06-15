@@ -1,0 +1,31 @@
+{
+    "tests": [
+        { "language": "JavaScript", "test_name": "Unit Test", "status": "passed", "timestamp": "2025-06-15T00:00:00Z" },
+        { "language": "Python", "test_name": "Integration Test", "status": "failed", "timestamp": "2025-06-14T00:00:00Z" }
+    ],
+    "correctiveActions": [
+        { "priority": "high", "title": "Fehler beheben", "responsible": "Anna", "due_date": "2025-06-20", "status": "open" }
+    ],
+    "team": [
+        { "name": "Anna", "responsibility": "Entwicklerin", "status": "Aktiv", "training_progress": 50 },
+        { "name": "Ben", "responsibility": "Tester", "status": "Inaktiv", "training_progress": 20 }
+    ],
+    "kpis": [],
+    "trainings": [
+        { "member": "Anna", "topic": "JavaScript", "start": "2025-06-01", "end": "2025-06-10", "certification": true, "completed": false }
+    ],
+    "testplans": [],
+    "legacyModules": [],
+    "audits": [
+        { "id": 1, "title": "Internes Audit", "type": "intern", "date": "2025-06-20", "responsible": "Anna", "scope": "Prozessprüfung", "findings": [], "status": "planned" }
+    ],
+    "environments": [
+        { "id": 1, "name": "DEV", "user": "Anna", "duration": 4, "reserved_at": "2025-06-15T00:00:00Z", "status": "reserved" }
+    ],
+    "knowledgeBase": [
+        { "id": 1, "title": "Test Artikel", "content": "Dies ist ein Test", "tags": ["test", "demo"], "created_at": "2025-06-15T00:00:00Z", "views": 0, "last_accessed": null }
+    ],
+    "rootCauseAnalysis": [
+        { "id": 1, "problem": "Testfehler", "type": "Ishikawa", "date": "2025-06-15", "responsible": "Anna", "analysis": { "people": "Schulung fehlt", "methods": "Prozess unklar" }, "status": "open", "created_at": "2025-06-15T00:00:00Z" }
+    ]
+}

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 QualitätsCockpit</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto py-4 px-4 flex items-center">
+            <div class="text-red-600 mr-4 text-2xl">🧪</div>
+            <h1 class="text-xl font-medium text-gray-800">QualitätsCockpit</h1>
+        </div>
+    </header>
+
+    <nav class="container mx-auto my-2 px-4 border-b">
+        <ul class="flex flex-wrap gap-1">
+            <li><button class="nav-btn" data-page="home">Home</button></li>
+            <li><button class="nav-btn" data-page="testplan">Testplan</button></li>
+            <li><button class="nav-btn" data-page="automation">Automatisierung</button></li>
+            <li><button class="nav-btn" data-page="legacy">Legacy-Code</button></li>
+            <li><button class="nav-btn" data-page="reporting">Reporting</button></li>
+            <li><button class="nav-btn" data-page="kpis">KPIs</button></li>
+            <li><button class="nav-btn" data-page="capa">CAPA</button></li>
+            <li><button class="nav-btn" data-page="cicd">CI/CD</button></li>
+            <li><button class="nav-btn" data-page="audits">Audits</button></li>
+            <li><button class="nav-btn" data-page="rootcause">Root Cause</button></li>
+            <li><button class="nav-btn" data-page="environments">Umgebungen</button></li>
+            <li><button class="nav-btn" data-page="knowledge">Wissensdatenbank</button></li>
+        </ul>
+    </nav>
+
+    <main class="container mx-auto px-4 py-6 grid grid-cols-12 gap-6">
+        <!-- Home Page -->
+        <section id="home" class="page hidden col-span-12">
+            <h2 class="page-title">Dashboard</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Team</h3>
+                    <table id="team-table" class="data-table"></table>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Tests</h3>
+                    <table id="test-table" class="data-table"></table>
+                    <div id="test-summary" class="mt-4"></div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Training zuweisen</h3>
+                    <button id="toggle-training-form" class="secondary-btn mb-4">Formular anzeigen</button>
+                    <form id="training-form" class="space-y-4 hidden">
+                        <div>
+                            <label for="training-member" class="block font-medium text-sm">Mitarbeiter</label>
+                            <select id="training-member" class="form-input"></select>
+                        </div>
+                        <div>
+                            <label for="training-topic" class="block font-medium text-sm">Thema</label>
+                            <input type="text" id="training-topic" class="form-input">
+                        </div>
+                        <div>
+                            <label for="training-start" class="block font-medium text-sm">Startdatum</label>
+                            <input type="date" id="training-start" class="form-input">
+                        </div>
+                        <div>
+                            <label for="training-end" class="block font-medium text-sm">Enddatum</label>
+                            <input type="date" id="training-end" class="form-input">
+                        </div>
+                        <div>
+                            <label for="certification" class="flex items-center">
+                                <input type="checkbox" id="certification" class="mr-2">
+                                <span>Zertifizierung erforderlich</span>
+                            </label>
+                        </div>
+                        <button type="button" id="assign-training" class="action-btn">Schulung zuweisen</button>
+                    </form>
+                </article>
+                
+                <article class="card col-span-3">
+                    <h3 class="card-title">Schulungsfortschritt</h3>
+                    <div class="chart-container">
+                        <canvas id="training-chart"></canvas>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Testplan Page -->
+        <section id="testplan" class="page hidden col-span-12">
+            <h2 class="page-title">Testplan Management</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Strukturierte Testpläne stellen sicher, dass alle Funktionen systematisch geprüft werden.</p>
+                <p><strong>Unternehmensnutzen:</strong> Erhöht die Testabdeckung, reduziert Regressionen und dokumentiert Testaktivitäten.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Neuen Testplan erstellen</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="test-type" class="block font-medium text-sm">Testtyp</label>
+                            <select id="test-type" class="form-input">
+                                <option value="Unit">Unit-Test</option>
+                                <option value="Integration">Integrationstest</option>
+                                <option value="System">Systemtest</option>
+                                <option value="Akzeptanz">Akzeptanztest</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="test-frequency" class="block font-medium text-sm">Frequenz</label>
+                            <select id="test-frequency" class="form-input">
+                                <option value="Täglich">Täglich</option>
+                                <option value="Wöchentlich">Wöchentlich</option>
+                                <option value="Monatlich">Monatlich</option>
+                                <option value="Bei Release">Bei Release</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="test-responsible" class="block font-medium text-sm">Verantwortlich</label>
+                            <select id="test-responsible" class="form-input"></select>
+                        </div>
+                        <div>
+                            <label for="test-scope" class="block font-medium text-sm">Umfang/Beschreibung</label>
+                            <textarea id="test-scope" class="form-input" rows="3"></textarea>
+                        </div>
+                        <button type="button" id="save-testplan" class="action-btn">Testplan speichern</button>
+                        <div id="testplan-success" class="hidden bg-green-100 text-green-800 p-3 rounded-md mt-4">
+                            Testplan erfolgreich gespeichert!
+                        </div>
+                    </form>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Aktive Testpläne</h3>
+                    <table id="testplans-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Automation Page -->
+        <section id="automation" class="page hidden col-span-12">
+            <h2 class="page-title">Testautomatisierung</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Automatisierte Tests beschleunigen Regressionstests und erhöhen die Codequalität.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert manuellen Aufwand, ermöglicht häufigeres Testen und frühzeitige Fehlererkennung.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Automatisierten Test hinzufügen</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="auto-language" class="block font-medium text-sm">Sprache</label>
+                            <select id="auto-language" class="form-input">
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="Python">Python</option>
+                                <option value="Java">Java</option>
+                                <option value="C#">C#</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="auto-testname" class="block font-medium text-sm">Testname</label>
+                            <input type="text" id="auto-testname" class="form-input">
+                        </div>
+                        <div>
+                            <label for="auto-status" class="block font-medium text-sm">Status</label>
+                            <select id="auto-status" class="form-input">
+                                <option value="passed">Bestanden</option>
+                                <option value="failed">Fehlgeschlagen</option>
+                            </select>
+                        </div>
+                        <button type="button" id="add-automated-test" class="action-btn">Test hinzufügen</button>
+                    </form>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Tests ausführen</h3>
+                    <button id="run-automated-tests" class="action-btn mb-4">Automatisierte Tests starten</button>
+                    <div id="automation-result" class="hidden bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-700 mb-2">Testergebnisse</h4>
+                        <p>Dauer: <span id="test-duration"></span> Minuten</p>
+                        <p>Erfolgsrate: <span id="test-success-rate"></span></p>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Testverteilung nach Sprache</h3>
+                    <div class="chart-container">
+                        <canvas id="test-lang-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Teststatistik</h3>
+                    <div class="chart-container">
+                        <canvas id="test-success-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card col-span-2">
+                    <h3 class="card-title">Testresultate</h3>
+                    <table id="test-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Legacy Page -->
+        <section id="legacy" class="page hidden col-span-12">
+            <h2 class="page-title">Legacy-Code Analyse</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Legacy-Systeme enthalten oft technische Schulden, die Wartungskosten erhöhen und Innovationen behindern.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert Wartungskosten, verbessert Stabilität und ermöglicht schrittweise Migration zu modernen Architekturen.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Modulanalyse</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="legacy-module-select" class="block font-medium text-sm">Modul auswählen</label>
+                            <select id="legacy-module-select" class="form-input"></select>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Komplexität</span>
+                                <span id="complexity-value" class="font-bold"></span>
+                            </div>
+                            <div class="progress-bar bg-gray-200 rounded-full h-2">
+                                <div id="complexity-bar" class="progress-bar-fill h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Testabdeckung</span>
+                                <span id="coverage-value" class="font-bold"></span>
+                            </div>
+                            <div class="progress-bar bg-gray-200 rounded-full h-2">
+                                <div id="coverage-bar" class="progress-bar-fill h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Technische Schulden</span>
+                                <span id="debt-value" class="font-bold"></span>
+                            </div>
+                            <div class="progress-bar bg-gray-200 rounded-full h-2">
+                                <div id="debt-bar" class="progress-bar-fill h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Wartbarkeit</span>
+                                <span id="maintainability-value" class="font-bold"></span>
+                            </div>
+                            <div class="progress-bar bg-gray-200 rounded-full h-2">
+                                <div id="maintainability-bar" class="progress-bar-fill h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <button id="analyze-legacy" class="action-btn mt-4">Analyse starten</button>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Analyseergebnisse</h3>
+                    <div id="legacy-analysis-result" class="space-y-4"></div>
+                </article>
+                
+                <article class="card col-span-2">
+                    <h3 class="card-title">Testabdeckung nach Modul</h3>
+                    <div class="chart-container">
+                        <canvas id="coverage-chart"></canvas>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Reporting Page -->
+        <section id="reporting" class="page hidden col-span-12">
+            <h2 class="page-title">Qualitätsreporting</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Transparente Berichterstattung schafft Vertrauen und ermöglicht datengestützte Entscheidungen.</p>
+                <p><strong>Unternehmensnutzen:</strong> Visualisiert Fortschritt, identifiziert Risikobereiche und dokumentiert Qualitätsinitiativen.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+                <article class="card">
+                    <h3 class="card-title">Erfolgsrate</h3>
+                    <div class="text-3xl font-bold text-blue-600" id="pass-rate"></div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Bestandene Tests</h3>
+                    <div class="text-3xl font-bold text-green-600" id="passed-tests"></div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Fehlgeschlagene Tests</h3>
+                    <div class="text-3xl font-bold text-red-600" id="failed-tests"></div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Berichte</h3>
+                    <div class="flex flex-col space-y-2">
+                        <button id="generate-full-report" class="download-btn">Vollständiger Bericht</button>
+                        <button id="generate-summary-report" class="secondary-btn">Zusammenfassung</button>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Testverteilung nach Sprache</h3>
+                    <div class="chart-container">
+                        <canvas id="test-distribution-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Teststatistik</h3>
+                    <div class="chart-container">
+                        <canvas id="test-success-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card col-span-2">
+                    <h3 class="card-title">Korrekturmaßnahmen (CAPA)</h3>
+                    <table id="capa-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- KPIs Page -->
+        <section id="kpis" class="page hidden col-span-12">
+            <h2 class="page-title">Qualitätskennzahlen (KPIs)</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> KPIs messen die Effektivität von Qualitätssicherungsmaßnahmen und zeigen Verbesserungspotenziale.</p>
+                <p><strong>Unternehmensnutzen:</strong> Quantifiziert Qualitätsfortschritt, identifiziert Trends und rechtfertigt Investitionen in Qualitätssicherung.</p>
+            </div>
+            
+            <article class="card">
+                <h3 class="card-title">Build-Erfolgsrate</h3>
+                <div class="chart-container">
+                    <canvas id="kpi-chart"></canvas>
+                </div>
+            </article>
+        </section>
+
+        <!-- CAPA Page -->
+        <section id="capa" class="page hidden col-span-12">
+            <h2 class="page-title">Korrektur- und Vorbeugungsmaßnahmen (CAPA)</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Systematische Problemlösung verhindert wiederkehrende Fehler und verbessert Prozesse nachhaltig.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert Fehlerkosten, verbessert Produktqualität und stärkt Kundenvertrauen.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <div class="flex justify-between items-center">
+                        <h3 class="card-title">Neue CAPA erstellen</h3>
+                        <button id="toggle-capa-form" class="secondary-btn">Formular anzeigen</button>
+                    </div>
+                    
+                    <form id="capa-form" class="space-y-4 mt-4 hidden">
+                        <input type="hidden" id="capa-id">
+                        <div>
+                            <label for="capa-title" class="block font-medium text-sm">Titel</label>
+                            <input type="text" id="capa-title" class="form-input">
+                        </div>
+                        <div>
+                            <label for="capa-description" class="block font-medium text-sm">Beschreibung</label>
+                            <textarea id="capa-description" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div>
+                            <label for="capa-priority" class="block font-medium text-sm">Priorität</label>
+                            <select id="capa-priority" class="form-input">
+                                <option value="high">Hoch</option>
+                                <option value="medium">Mittel</option>
+                                <option value="low">Niedrig</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="capa-status" class="block font-medium text-sm">Status</label>
+                            <select id="capa-status" class="form-input">
+                                <option value="open">Offen</option>
+                                <option value="in_progress">In Bearbeitung</option>
+                                <option value="closed">Geschlossen</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="capa-responsible" class="block font-medium text-sm">Verantwortlich</label>
+                            <select id="capa-responsible" class="form-input"></select>
+                        </div>
+                        <div>
+                            <label for="capa-due" class="block font-medium text-sm">Fällig am</label>
+                            <input type="date" id="capa-due" class="form-input">
+                        </div>
+                        <button type="button" id="save-capa" class="action-btn">CAPA speichern</button>
+                    </form>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">CAPA-Status</h3>
+                    <div class="chart-container">
+                        <canvas id="capa-status-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card col-span-2">
+                    <h3 class="card-title">Aktive CAPAs</h3>
+                    <table id="capa-table" class="data-table"></table>
+                </article>
+                
+                <article class="card col-span-2">
+                    <h3 class="card-title">Risikobewertung</h3>
+                    <div class="chart-container">
+                        <canvas id="capa-risk-chart"></canvas>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CI/CD Page -->
+        <section id="cicd" class="page hidden col-span-12">
+            <h2 class="page-title">CI/CD Pipeline</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Automatisierte Pipelines beschleunigen Softwareauslieferungen und erhöhen Release-Stabilität.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert manuelle Fehler, verkürzt Time-to-Market und ermöglicht häufige Releases.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Jenkins-Verbindung</h3>
+                    <button id="test-ci-connection" class="action-btn mb-4">Verbindung testen</button>
+                    <div id="ci-status" class="hidden p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"></div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Letzte Builds</h3>
+                    <table id="ci-builds" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Audits Page -->
+        <section id="audits" class="page hidden col-span-12">
+            <h2 class="page-title">Qualitätsaudits</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Systematische Audits stellen die Einhaltung von Qualitätsstandards sicher und identifizieren Verbesserungspotenziale.</p>
+                <p><strong>Unternehmensnutzen:</strong> Sichert Compliance, reduziert Risiken und schafft Vertrauen bei Kunden und Stakeholdern.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Audit planen</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="audit-title" class="block font-medium text-sm">Titel</label>
+                            <input type="text" id="audit-title" class="form-input">
+                        </div>
+                        <div>
+                            <label for="audit-type" class="block font-medium text-sm">Audit-Typ</label>
+                            <select id="audit-type" class="form-input">
+                                <option value="intern">Intern</option>
+                                <option value="extern">Extern</option>
+                                <option value="Lieferant">Lieferant</option>
+                                <option value="Prozess">Prozess</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="audit-date" class="block font-medium text-sm">Datum</label>
+                            <input type="date" id="audit-date" class="form-input">
+                        </div>
+                        <div>
+                            <label for="audit-responsible" class="block font-medium text-sm">Verantwortlich</label>
+                            <select id="audit-responsible" class="form-input"></select>
+                        </div>
+                        <div>
+                            <label for="audit-scope" class="block font-medium text-sm">Umfang</label>
+                            <textarea id="audit-scope" class="form-input" rows="3"></textarea>
+                        </div>
+                        <button type="button" id="schedule-audit" class="action-btn">Audit planen</button>
+                    </form>
+                </article>
+
+                <article class="card">
+                    <h3 class="card-title">Audit-Befund hinzufügen</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="audit-for-finding" class="block font-medium text-sm">Audit auswählen</label>
+                            <select id="audit-for-finding" class="form-input"></select>
+                        </div>
+                        <div>
+                            <label for="finding-description" class="block font-medium text-sm">Befund</label>
+                            <textarea id="finding-description" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div>
+                            <label for="finding-severity" class="block font-medium text-sm">Schweregrad</label>
+                            <select id="finding-severity" class="form-input">
+                                <option value="gering">Gering</option>
+                                <option value="mittel">Mittel</option>
+                                <option value="hoch">Hoch</option>
+                                <option value="kritisch">Kritisch</option>
+                            </select>
+                        </div>
+                        <button type="button" id="add-finding" class="action-btn">Befund hinzufügen</button>
+                    </form>
+                </article>
+
+                <article class="card col-span-2">
+                    <h3 class="card-title">Geplante Audits</h3>
+                    <table id="audits-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Root Cause Page -->
+        <section id="rootcause" class="page hidden col-span-12">
+            <h2 class="page-title">Root-Cause-Analyse (RCA)</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Systematische Analyse von Problemen, um die zugrunde liegenden Ursachen zu identifizieren und dauerhafte Lösungen zu implementieren.</p>
+                <p><strong>Unternehmensnutzen:</strong> Verhindert das erneute Auftreten von Fehlern, reduziert Kosten durch Wiederholungsfehler und verbessert die Produktqualität.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Neue RCA starten</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="rca-problem" class="block font-medium text-sm">Problembeschreibung</label>
+                            <textarea id="rca-problem" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div>
+                            <label for="rca-type" class="block font-medium text-sm">Analyse-Methode</label>
+                            <select id="rca-type" class="form-input">
+                                <option value="Ishikawa">Ishikawa (Fischgrät)</option>
+                                <option value="5-Why">5-Why-Methode</option>
+                                <option value="FMEA">FMEA</option>
+                                <option value="Pareto">Pareto-Analyse</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="rca-date" class="block font-medium text-sm">Datum</label>
+                            <input type="date" id="rca-date" class="form-input">
+                        </div>
+                        <div>
+                            <label for="rca-responsible" class="block font-medium text-sm">Verantwortlich</label>
+                            <input type="text" id="rca-responsible" class="form-input">
+                        </div>
+                        <button type="button" id="add-rca" class="action-btn">RCA starten</button>
+                    </form>
+                </article>
+
+                <article class="card" id="ishikawa-tool">
+                    <h3 class="card-title">Ishikawa-Diagramm</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="font-medium">Personen</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                        <div>
+                            <label class="font-medium">Methoden</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                        <div>
+                            <label class="font-medium">Maschinen</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                        <div>
+                            <label class="font-medium">Material</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                        <div>
+                            <label class="font-medium">Umgebung</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                        <div>
+                            <label class="font-medium">Messung</label>
+                            <input type="text" class="form-input mt-1">
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card hidden" id="5why-tool">
+                    <h3 class="card-title">5-Why-Analyse</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="font-medium">Warum 1</label>
+                            <textarea class="form-input mt-1" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label class="font-medium">Warum 2</label>
+                            <textarea class="form-input mt-1" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label class="font-medium">Warum 3</label>
+                            <textarea class="form-input mt-1" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label class="font-medium">Warum 4</label>
+                            <textarea class="form-input mt-1" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label class="font-medium">Warum 5</label>
+                            <textarea class="form-input mt-1" rows="2"></textarea>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card col-span-2">
+                    <h3 class="card-title">Laufende Analysen</h3>
+                    <table id="rca-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Environments Page -->
+        <section id="environments" class="page hidden col-span-12">
+            <h2 class="page-title">Testumgebungsmanagement</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Zentralisierte Verwaltung von Testumgebungen stellt sicher, dass stets konsistente und verfügbare Umgebungen für Tests zur Verfügung stehen.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert Wartezeiten, vermeidet Konfigurationsfehler und erhöht die Testeffizienz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Umgebung reservieren</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="environment-name" class="block font-medium text-sm">Umgebung</label>
+                            <select id="environment-name" class="form-input">
+                                <option value="DEV">DEV</option>
+                                <option value="QA">QA</option>
+                                <option value="STAGING">STAGING</option>
+                                <option value="PERF">Performance</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="environment-user" class="block font-medium text-sm">Benutzer</label>
+                            <input type="text" id="environment-user" class="form-input">
+                        </div>
+                        <div>
+                            <label for="environment-duration" class="block font-medium text-sm">Dauer (Stunden)</label>
+                            <input type="number" id="environment-duration" class="form-input" min="1" max="48" value="4">
+                        </div>
+                        <button type="button" id="reserve-environment" class="action-btn">Reservieren</button>
+                    </form>
+                </article>
+
+                <article class="card">
+                    <h3 class="card-title">Umgebungsstatus</h3>
+                    <div class="chart-container">
+                        <canvas id="environment-chart"></canvas>
+                    </div>
+                </article>
+
+                <article class="card col-span-2">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="card-title">Verfügbare Umgebungen</h3>
+                        <button id="refresh-environments" class="secondary-btn">Aktualisieren</button>
+                    </div>
+                    <table id="environments-table" class="data-table"></table>
+                </article>
+            </div>
+        </section>
+
+        <!-- Knowledge Base Page -->
+        <section id="knowledge" class="page hidden col-span-12">
+            <h2 class="page-title">Wissensdatenbank</h2>
+            <div class="page-description">
+                <p><strong>Warum ist das wichtig?</strong> Zentrale Sammlung von Wissen und Best Practices ermöglicht Wiederverwendung und beschleunigt Einarbeitung.</p>
+                <p><strong>Unternehmensnutzen:</strong> Reduziert Wissensverlust, fördert Konsistenz und verbessert die Problemlösungseffizienz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <article class="card lg:col-span-1">
+                    <h3 class="card-title">Neuer Artikel</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="article-title" class="block font-medium text-sm">Titel</label>
+                            <input type="text" id="article-title" class="form-input">
+                        </div>
+                        <div>
+                            <label for="article-tags" class="block font-medium text-sm">Tags (durch Kommas getrennt)</label>
+                            <input type="text" id="article-tags" class="form-input">
+                        </div>
+                        <div>
+                            <label for="article-content" class="block font-medium text-sm">Inhalt</label>
+                            <textarea id="article-content" class="form-input" rows="10"></textarea>
+                        </div>
+                        <button type="button" id="add-article" class="action-btn">Artikel hinzufügen</button>
+                    </form>
+                </article>
+
+                <article class="card lg:col-span-2">
+                    <div class="mb-4">
+                        <input type="text" id="search-knowledge" class="form-input" placeholder="Suche nach Titel, Inhalt oder Tags...">
+                    </div>
+                    <table id="knowledge-table" class="data-table"></table>
+                </article>
+            </div>
+
+            <!-- Artikelansicht-Modal -->
+            <div id="article-view-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="bg-white rounded-lg p-6 max-w-3xl max-h-screen overflow-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="article-view-title" class="text-xl font-bold"></h3>
+                        <button id="close-article" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="article-view-tags" class="mb-4 flex flex-wrap gap-2"></div>
+                    <div id="article-view-content" class="prose max-w-none"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
