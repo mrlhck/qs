@@ -359,13 +359,35 @@
                 <p><strong>Warum ist das wichtig?</strong> KPIs messen die Effektivität von Qualitätssicherungsmaßnahmen und zeigen Verbesserungspotenziale.</p>
                 <p><strong>Unternehmensnutzen:</strong> Quantifiziert Qualitätsfortschritt, identifiziert Trends und rechtfertigt Investitionen in Qualitätssicherung.</p>
             </div>
-            
-            <article class="card">
-                <h3 class="card-title">Build-Erfolgsrate</h3>
-                <div class="chart-container">
-                    <canvas id="kpi-chart"></canvas>
-                </div>
-            </article>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="card">
+                    <h3 class="card-title">Build-Erfolgsrate</h3>
+                    <div class="chart-container">
+                        <canvas id="kpi-build-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Testabdeckung nach Modul</h3>
+                    <div class="chart-container">
+                        <canvas id="kpi-coverage-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Fehlerdichte</h3>
+                    <div class="chart-container">
+                        <canvas id="kpi-defect-density-chart"></canvas>
+                    </div>
+                </article>
+                
+                <article class="card">
+                    <h3 class="card-title">Wartungsmetriken</h3>
+                    <div class="chart-container">
+                        <canvas id="kpi-maintainability-chart"></canvas>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <!-- CAPA Page -->

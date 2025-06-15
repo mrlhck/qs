@@ -12,6 +12,7 @@ import { initRootCausePage } from './rootcause.js';
 import { initEnvironmentsPage } from './environments.js';
 import { initKnowledgePage } from './knowledge.js';
 
+// Globale Datenstruktur
 const qualityData = {
     tests: [],
     correctiveActions: [],
@@ -26,67 +27,93 @@ const qualityData = {
     rootCauseAnalysis: []
 };
 
+// Daten global verfügbar machen
+window.qualityData = qualityData;
+
 const chartInstances = {};
 const pageInitialized = {};
 
-async function initApp() {
+async function loadData() {
     try {
-        const response = await fetch('data.json');
+        const response = await fetch('/data.json');
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        Object.assign(qualityData, await response.json());
-
-        initNavigation();
-        
-        // Initialize only home page first
-        initHomePage(qualityData, chartInstances);
-        pageInitialized.home = true;
-        
-        // Initialize other pages when navigated to
-        document.querySelectorAll('.nav-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const page = button.getAttribute('data-page');
-                if (page) {
-                    showPage(page);
-                    if (!pageInitialized[page]) {
-                        initPage(page, qualityData, chartInstances);
-                        pageInitialized[page] = true;
-                    }
-                }
-            });
-        });
-
-        // Modal schließen Event hinzufügen
-        const closeArticleBtn = document.getElementById('close-article');
-        if (closeArticleBtn) {
-            closeArticleBtn.addEventListener('click', () => {
-                document.getElementById('article-view-modal').classList.add('hidden');
-            });
-        } else {
-            console.warn('Close article button not found');
-        }
-
-        showPage('home');
+        return await response.json();
     } catch (error) {
         console.error('Failed to load data:', error);
         alert('Fehler beim Laden der Daten. Bitte versuchen Sie es später erneut.');
+        return null;
     }
 }
 
+function deepMerge(target, source) {
+    for (const key of Object.keys(source)) {
+        if (source[key] instanceof Object && !Array.isArray(source[key])) {
+            Object.assign(source[key], deepMerge(target[key] || {}, source[key]));
+        } else {
+            target[key] = source[key];
+        }
+    }
+    return target;
+}
+
+async function initApp() {
+    // Daten laden
+    const loadedData = await loadData();
+    if (!loadedData) return;
+    
+    // Daten in die globale Struktur mergen
+    deepMerge(qualityData, loadedData);
+    
+    // Navigation initialisieren
+    initNavigation();
+    
+    // Home-Seite initialisieren
+    initHomePage(qualityData, chartInstances);
+    pageInitialized.home = true;
+    
+    // Event-Listener für Navigation
+    document.querySelectorAll('.nav-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const page = button.getAttribute('data-page');
+            if (page) {
+                showPage(page);
+                if (!pageInitialized[page]) {
+                    // Verzögerung für die Initialisierung der Seite
+                    setTimeout(() => {
+                        initPage(page, qualityData, chartInstances);
+                        pageInitialized[page] = true;
+                    }, 50);
+                }
+                
+                // Keine direkten Aufrufe von update...Charts hier
+            }
+        });
+    });
+
+    // Artikel-Modal Event
+    document.getElementById('close-article')?.addEventListener('click', () => {
+        document.getElementById('article-view-modal').classList.add('hidden');
+    });
+
+    // Startseite anzeigen
+    showPage('home');
+}
+
 function initPage(page, data, charts) {
-  const initMap = {
-    'home': initHomePage,
-    'testplan': initTestPlanPage,
-    'automation': initAutomationPage,
-    'legacy': initLegacyPage,
-    'reporting': initReportingPage,
-    'kpis': initKpisPage,
-    'capa': initCapaPage,
-    'cicd': initCiCdPage,
-    'audits': initAuditsPage,
-    'rootcause': initRootCausePage,
-    'environments': initEnvironmentsPage,
-    'knowledge': initKnowledgePage
-  };
+    const initMap = {
+        'home': initHomePage,
+        'testplan': initTestPlanPage,
+        'automation': initAutomationPage,
+        'legacy': initLegacyPage,
+        'reporting': initReportingPage,
+        'kpis': initKpisPage,
+        'capa': initCapaPage,
+        'cicd': initCiCdPage,
+        'audits': initAuditsPage,
+        'rootcause': initRootCausePage,
+        'environments': initEnvironmentsPage,
+        'knowledge': initKnowledgePage
+    };
     
     const initFn = initMap[page];
     if (initFn) {
@@ -104,7 +131,6 @@ function initNavigation() {
             const page = button.getAttribute('data-page');
             if (page) {
                 showPage(page);
-                // Navigation auf kleine Position scrollen
                 document.querySelector('nav').scrollTo({
                     left: button.offsetLeft - 20,
                     behavior: 'smooth'

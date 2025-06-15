@@ -1,31 +1,146 @@
 {
-    "tests": [
-        { "language": "JavaScript", "test_name": "Unit Test", "status": "passed", "timestamp": "2025-06-15T00:00:00Z" },
-        { "language": "Python", "test_name": "Integration Test", "status": "failed", "timestamp": "2025-06-14T00:00:00Z" }
-    ],
-    "correctiveActions": [
-        { "priority": "high", "title": "Fehler beheben", "responsible": "Anna", "due_date": "2025-06-20", "status": "open" }
-    ],
-    "team": [
-        { "name": "Anna", "responsibility": "Entwicklerin", "status": "Aktiv", "training_progress": 50 },
-        { "name": "Ben", "responsibility": "Tester", "status": "Inaktiv", "training_progress": 20 }
-    ],
-    "kpis": [],
-    "trainings": [
-        { "member": "Anna", "topic": "JavaScript", "start": "2025-06-01", "end": "2025-06-10", "certification": true, "completed": false }
-    ],
-    "testplans": [],
-    "legacyModules": [],
-    "audits": [
-        { "id": 1, "title": "Internes Audit", "type": "intern", "date": "2025-06-20", "responsible": "Anna", "scope": "Prozessprüfung", "findings": [], "status": "planned" }
-    ],
-    "environments": [
-        { "id": 1, "name": "DEV", "user": "Anna", "duration": 4, "reserved_at": "2025-06-15T00:00:00Z", "status": "reserved" }
-    ],
-    "knowledgeBase": [
-        { "id": 1, "title": "Test Artikel", "content": "Dies ist ein Test", "tags": ["test", "demo"], "created_at": "2025-06-15T00:00:00Z", "views": 0, "last_accessed": null }
-    ],
-    "rootCauseAnalysis": [
-        { "id": 1, "problem": "Testfehler", "type": "Ishikawa", "date": "2025-06-15", "responsible": "Anna", "analysis": { "people": "Schulung fehlt", "methods": "Prozess unklar" }, "status": "open", "created_at": "2025-06-15T00:00:00Z" }
-    ]
+  "tests": [
+    { "language": "JavaScript", "test_name": "Login-Validierung", "status": "passed", "timestamp": "2025-06-15T10:30:00Z" },
+    { "language": "Python", "test_name": "Datenbank-Integration", "status": "failed", "timestamp": "2025-06-14T14:45:00Z" },
+    { "language": "Java", "test_name": "API-Lasttest", "status": "passed", "timestamp": "2025-06-14T09:15:00Z" },
+    { "language": "C#", "test_name": "Payment-Gateway", "status": "passed", "timestamp": "2025-06-13T16:20:00Z" },
+    { "language": "JavaScript", "test_name": "UI-Responsiveness", "status": "passed", "timestamp": "2025-06-13T11:10:00Z" },
+    { "language": "Python", "test_name": "Datenmigration", "status": "failed", "timestamp": "2025-06-12T13:25:00Z" },
+    { "language": "Java", "test_name": "Sicherheits-Scan", "status": "passed", "timestamp": "2025-06-12T08:45:00Z" },
+    { "language": "C#", "test_name": "Export-Funktion", "status": "passed", "timestamp": "2025-06-11T15:30:00Z" },
+    { "language": "JavaScript", "test_name": "Session-Handling", "status": "passed", "timestamp": "2025-06-11T10:20:00Z" },
+    { "language": "Python", "test_name": "Daten-Validierung", "status": "passed", "timestamp": "2025-06-10T14:15:00Z" },
+    { "language": "Java", "test_name": "Performance-Optimierung", "status": "failed", "timestamp": "2025-06-10T09:30:00Z" },
+    { "language": "C#", "test_name": "Import-Funktion", "status": "passed", "timestamp": "2025-06-09T16:40:00Z" },
+    { "language": "JavaScript", "test_name": "Formular-Validierung", "status": "passed", "timestamp": "2025-06-09T11:25:00Z" },
+    { "language": "Python", "test_name": "Report-Generierung", "status": "passed", "timestamp": "2025-06-08T14:50:00Z" },
+    { "language": "Java", "test_name": "Cache-Mechanismus", "status": "passed", "timestamp": "2025-06-08T09:15:00Z" },
+    { "language": "C#", "test_name": "Benachrichtigungen", "status": "failed", "timestamp": "2025-06-07T15:20:00Z" },
+    { "language": "JavaScript", "test_name": "Dashboard-Widgets", "status": "passed", "timestamp": "2025-06-07T10:30:00Z" },
+    { "language": "Python", "test_name": "Daten-Synchronisation", "status": "passed", "timestamp": "2025-06-06T13:45:00Z" },
+    { "language": "Java", "test_name": "Authentifizierung", "status": "passed", "timestamp": "2025-06-06T08:55:00Z" },
+    { "language": "C#", "test_name": "PDF-Export", "status": "passed", "timestamp": "2025-06-05T16:10:00Z" }
+  ],
+ "correctiveActions": [
+    { "id": 1, "priority": "high", "title": "Sicherheitslücke schließen", "responsible": "Anna", "due_date": "2025-06-20", "status": "open" },
+    { "id": 2, "priority": "medium", "title": "Performance-Optimierung", "responsible": "Max", "due_date": "2025-06-25", "status": "in_progress" },
+    { "id": 3, "priority": "high", "title": "Datenbank-Timeout", "responsible": "Ben", "due_date": "2025-06-18", "status": "open" },
+    { "id": 4, "priority": "low", "title": "UI-Anpassungen", "responsible": "Lisa", "due_date": "2025-07-01", "status": "open" },
+    { "id": 5, "priority": "medium", "title": "Logging verbessern", "responsible": "Tom", "due_date": "2025-06-22", "status": "in_progress" },
+    { "id": 6, "priority": "high", "title": "Sicherheitsaudit", "responsible": "Anna", "due_date": "2025-06-30", "status": "open" },
+    { "id": 7, "priority": "low", "title": "Dokumentation aktualisieren", "responsible": "Lisa", "due_date": "2025-07-05", "status": "closed" },
+    { "id": 8, "priority": "medium", "title": "Testabdeckung erhöhen", "responsible": "Ben", "due_date": "2025-07-10", "status": "open" },
+    { "id": 9, "priority": "high", "title": "CI-Pipeline reparieren", "responsible": "Max", "due_date": "2025-06-17", "status": "in_progress" }
+  ],
+  "team": [
+    { "name": "Anna", "responsibility": "Entwicklerin", "status": "Aktiv", "training_progress": 85 },
+    { "name": "Ben", "responsibility": "Tester", "status": "Aktiv", "training_progress": 70 },
+    { "name": "Max", "responsibility": "DevOps", "status": "Aktiv", "training_progress": 90 },
+    { "name": "Lisa", "responsibility": "UX Designer", "status": "Aktiv", "training_progress": 65 },
+    { "name": "Tom", "responsibility": "Backend-Entwickler", "status": "Aktiv", "training_progress": 80 },
+    { "name": "Sarah", "responsibility": "Frontend-Entwickler", "status": "Aktiv", "training_progress": 75 },
+    { "name": "Paul", "responsibility": "Systemarchitekt", "status": "Aktiv", "training_progress": 95 },
+    { "name": "Julia", "responsibility": "Produktmanager", "status": "Aktiv", "training_progress": 60 }
+  ],
+  "kpis": [],
+  "trainings": [
+    { "member": "Anna", "topic": "React Advanced", "start": "2025-06-01", "end": "2025-06-10", "certification": true, "completed": true },
+    { "member": "Ben", "topic": "Testautomatisierung", "start": "2025-06-05", "end": "2025-06-15", "certification": false, "completed": false },
+    { "member": "Max", "topic": "Kubernetes", "start": "2025-06-03", "end": "2025-06-13", "certification": true, "completed": true },
+    { "member": "Lisa", "topic": "UI/UX Best Practices", "start": "2025-06-08", "end": "2025-06-18", "certification": true, "completed": false },
+    { "member": "Tom", "topic": "Microservices", "start": "2025-06-10", "end": "2025-06-20", "certification": false, "completed": false },
+    { "member": "Sarah", "topic": "TypeScript", "start": "2025-06-02", "end": "2025-06-12", "certification": true, "completed": true },
+    { "member": "Paul", "topic": "Cloud Security", "start": "2025-06-07", "end": "2025-06-17", "certification": true, "completed": false },
+    { "member": "Julia", "topic": "Agile Methoden", "start": "2025-06-04", "end": "2025-06-14", "certification": false, "completed": true }
+  ],
+  "testplans": [
+    { "id": 1, "type": "Integration", "frequency": "Wöchentlich", "responsible": "Ben", "scope": "API-Schnittstellen", "created_at": "2025-05-15T09:00:00Z" },
+    { "id": 2, "type": "Unit", "frequency": "Täglich", "responsible": "Anna", "scope": "Kernkomponenten", "created_at": "2025-05-20T11:30:00Z" },
+    { "id": 3, "type": "System", "frequency": "Bei Release", "responsible": "Max", "scope": "Gesamtsystem", "created_at": "2025-05-25T14:15:00Z" },
+    { "id": 4, "type": "Akzeptanz", "frequency": "Monatlich", "responsible": "Julia", "scope": "Benutzerakzeptanz", "created_at": "2025-06-01T10:00:00Z" },
+    { "id": 5, "type": "Performance", "frequency": "Quartalsweise", "responsible": "Tom", "scope": "Last- und Stresstests", "created_at": "2025-06-05T13:45:00Z" },
+    { "id": 6, "type": "Sicherheit", "frequency": "Halbjährlich", "responsible": "Paul", "scope": "Penetrationstests", "created_at": "2025-06-10T09:20:00Z" },
+    { "id": 7, "type": "Regression", "frequency": "Bei Änderungen", "responsible": "Sarah", "scope": "Rückwärtskompatibilität", "created_at": "2025-06-12T15:30:00Z" }
+  ],
+  "legacyModules": [
+    { "name": "Zahlungsverarbeitung", "language": "COBOL", "complexity": 8, "coverage": 45, "debt": 120, "maintainability": 35 },
+    { "name": "Kundenverwaltung", "language": "FORTRAN", "complexity": 7, "coverage": 30, "debt": 150, "maintainability": 25 },
+    { "name": "Bestellabwicklung", "language": "Pascal", "complexity": 9, "coverage": 25, "debt": 180, "maintainability": 20 },
+    { "name": "Lagerverwaltung", "language": "C", "complexity": 6, "coverage": 60, "debt": 90, "maintainability": 50 },
+    { "name": "Reporting", "language": "Visual Basic", "complexity": 5, "coverage": 40, "debt": 100, "maintainability": 45 },
+    { "name": "Rechnungsstellung", "language": "RPG", "complexity": 8, "coverage": 35, "debt": 140, "maintainability": 30 },
+    { "name": "Datenmigration", "language": "Perl", "complexity": 7, "coverage": 50, "debt": 110, "maintainability": 40 }
+  ],
+  "audits": [
+    { 
+      "id": 1, 
+      "title": "Sicherheitsaudit Q2", 
+      "type": "intern", 
+      "date": "2025-06-20", 
+      "responsible": "Anna", 
+      "scope": "Datenverschlüsselung", 
+      "findings": [
+        { "description": "Passwortrichtlinien nicht eingehalten", "severity": "hoch", "created_at": "2025-06-15T11:20:00Z" }
+      ], 
+      "status": "geplant" 
+    },
+    { 
+      "id": 2, 
+      "title": "ISO 9001 Compliance", 
+      "type": "extern", 
+      "date": "2025-07-15", 
+      "responsible": "Paul", 
+      "scope": "Qualitätsmanagementprozesse", 
+      "findings": [], 
+      "status": "geplant" 
+    },
+    { 
+      "id": 3, 
+      "title": "Datenschutzprüfung", 
+      "type": "intern", 
+      "date": "2025-06-25", 
+      "responsible": "Lisa", 
+      "scope": "DSGVO-Konformität", 
+      "findings": [
+        { "description": "Datenaufbewahrungsfristen nicht dokumentiert", "severity": "mittel", "created_at": "2025-06-10T14:30:00Z" }
+      ], 
+      "status": "in Bearbeitung" 
+    },
+    { 
+      "id": 4, 
+      "title": "Lieferantenaudit", 
+      "type": "Lieferant", 
+      "date": "2025-07-05", 
+      "responsible": "Tom", 
+      "scope": "Cloud-Dienstleister", 
+      "findings": [], 
+      "status": "geplant" 
+    }
+  ],
+  "environments": [
+    { "id": 1, "name": "DEV", "version": "1.8.2", "user": "Anna", "duration": 4, "reserved_at": "2025-06-15T09:00:00Z", "status": "in Benutzung", "last_updated": "2025-06-15T12:30:00Z" },
+    { "id": 2, "name": "QA", "version": "1.7.5", "user": "Ben", "duration": 8, "reserved_at": "2025-06-14T10:15:00Z", "status": "in Benutzung", "last_updated": "2025-06-15T08:45:00Z" },
+    { "id": 3, "name": "STAGING", "version": "1.8.0", "user": null, "duration": null, "reserved_at": null, "status": "verfügbar", "last_updated": "2025-06-15T07:30:00Z" },
+    { "id": 4, "name": "PERF", "version": "1.8.1", "user": "Max", "duration": 6, "reserved_at": "2025-06-15T13:00:00Z", "status": "in Benutzung", "last_updated": "2025-06-15T14:20:00Z" },
+    { "id": 5, "name": "UAT", "version": "1.7.9", "user": "Julia", "duration": 8, "reserved_at": "2025-06-13T09:45:00Z", "status": "in Benutzung", "last_updated": "2025-06-15T10:10:00Z" },
+    { "id": 6, "name": "DEMO", "version": "1.8.0", "user": null, "duration": null, "reserved_at": null, "status": "verfügbar", "last_updated": "2025-06-14T16:50:00Z" },
+    { "id": 7, "name": "LOAD", "version": "1.8.1", "user": "Tom", "duration": 4, "reserved_at": "2025-06-15T11:30:00Z", "status": "in Benutzung", "last_updated": "2025-06-15T15:45:00Z" }
+  ],
+  "knowledgeBase": [
+    { "id": 1, "title": "Sicherheitsrichtlinien", "content": "Richtlinien zur Datenverschlüsselung und Zugriffskontrolle...", "tags": ["sicherheit", "compliance"], "created_at": "2025-05-10T14:00:00Z", "views": 42, "last_accessed": "2025-06-14T10:15:00Z" },
+    { "id": 2, "title": "CI/CD Best Practices", "content": "Anleitung zur Einrichtung automatisierter Pipelines...", "tags": ["ci/cd", "devops"], "created_at": "2025-05-15T11:30:00Z", "views": 28, "last_accessed": "2025-06-13T14:20:00Z" },
+    { "id": 3, "title": "Testautomatisierung", "content": "Framework-Vergleich und Implementierungsleitfaden...", "tags": ["testing", "automation"], "created_at": "2025-05-20T09:45:00Z", "views": 35, "last_accessed": "2025-06-12T11:30:00Z" },
+    { "id": 4, "title": "Legacy-Migration", "content": "Strategien zur Modernisierung alter Systeme...", "tags": ["legacy", "migration"], "created_at": "2025-05-25T13:15:00Z", "views": 19, "last_accessed": "2025-06-11T15:40:00Z" },
+    { "id": 5, "title": "Datenbankoptimierung", "content": "Performance-Tuning für SQL-Server...", "tags": ["database", "performance"], "created_at": "2025-06-01T10:20:00Z", "views": 31, "last_accessed": "2025-06-10T09:25:00Z" },
+    { "id": 6, "title": "Agile Methoden", "content": "Scrum und Kanban im Vergleich...", "tags": ["agile", "scrum"], "created_at": "2025-06-05T14:50:00Z", "views": 24, "last_accessed": "2025-06-09T16:30:00Z" },
+    { "id": 7, "title": "Cloud-Architekturen", "content": "Design-Patterns für AWS und Azure...", "tags": ["cloud", "aws"], "created_at": "2025-06-10T11:10:00Z", "views": 37, "last_accessed": "2025-06-14T13:45:00Z" },
+    { "id": 8, "title": "Frontend-Performance", "content": "Techniken zur Optimierung von Webanwendungen...", "tags": ["frontend", "performance"], "created_at": "2025-06-12T15:25:00Z", "views": 22, "last_accessed": "2025-06-14T09:15:00Z" }
+  ],
+  "rootCauseAnalysis": [
+    { "id": 1, "problem": "Performance-Einbruch bei Last", "type": "Ishikawa", "date": "2025-06-10", "responsible": "Max", "analysis": { "people": "Schulung fehlt", "methods": "Prozess unklar" }, "status": "in Bearbeitung", "created_at": "2025-06-10T11:30:00Z" },
+    { "id": 2, "problem": "Dateninkonsistenz im Reporting", "type": "5-Why", "date": "2025-06-08", "responsible": "Tom", "analysis": { "why1": "Datenquelle unzuverlässig", "why2": "Validierung fehlt" }, "status": "abgeschlossen", "created_at": "2025-06-08T14:20:00Z" },
+    { "id": 3, "problem": "Sicherheitslücke entdeckt", "type": "FMEA", "date": "2025-06-05", "responsible": "Paul", "analysis": { "ursache": "Nicht validierte Eingaben", "wirkung": "Mögliche Datenexposition" }, "status": "in Bearbeitung", "created_at": "2025-06-05T10:45:00Z" },
+    { "id": 4, "problem": "CI-Pipeline fehlgeschlagen", "type": "Pareto", "date": "2025-06-03", "responsible": "Max", "analysis": { "hauptursache": "Flaky Tests", "nebenursachen": ["Konfigurationsfehler", "Ressourcenengpass"] }, "status": "abgeschlossen", "created_at": "2025-06-03T16:30:00Z" },
+    { "id": 5, "problem": "Benutzerbeschwerden über UI", "type": "Ishikawa", "date": "2025-06-01", "responsible": "Lisa", "analysis": { "people": "Anforderungen unklar", "methoden": "Design-Review fehlt" }, "status": "in Bearbeitung", "created_at": "2025-06-01T09:15:00Z" }
+  ]
 }

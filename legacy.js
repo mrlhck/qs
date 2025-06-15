@@ -9,24 +9,41 @@ export function initLegacyPage(data, charts) {
 function initLegacyAnalysis(data) {
     const moduleSelect = document.getElementById('legacy-module-select');
     if (!moduleSelect) return;
-    moduleSelect.innerHTML = data.legacyModules.map(module => `<option value="${module.name}">${module.name} (${module.language})</option>`).join('');
+    
+    // Sicherstellen, dass legacyModules vorhanden sind
+    if (!data.legacyModules || data.legacyModules.length === 0) {
+        console.warn('No legacy modules available');
+        return;
+    }
+    
+    moduleSelect.innerHTML = data.legacyModules.map(module => 
+        `<option value="${module.name}">${module.name} (${module.language})</option>`
+    ).join('');
+    
     updateLegacyModuleDetails(data);
 }
 
 function updateLegacyModuleDetails(data) {
     const moduleSelect = document.getElementById('legacy-module-select');
     if (!moduleSelect) return;
+    
     const module = data.legacyModules.find(m => m.name === moduleSelect.value);
     if (!module) return;
 
+    // Fortschrittsbalken aktualisieren
     document.getElementById('complexity-value').textContent = `${module.complexity}/10`;
-    document.getElementById('complexity-bar').className = `progress-bar-fill complexity-${module.complexity * 10}`;
+    document.getElementById('complexity-bar').style.width = `${module.complexity * 10}%`;
+    
     document.getElementById('coverage-value').textContent = `${module.coverage}%`;
-    document.getElementById('coverage-bar').className = `progress-bar-fill coverage-${module.coverage}`;
+    document.getElementById('coverage-bar').style.width = `${module.coverage}%`;
+    
     document.getElementById('debt-value').textContent = `${module.debt} Tage`;
-    document.getElementById('debt-bar').className = `progress-bar-fill coverage-${Math.min(module.debt / 2, 100)}`;
-    document.getElementById('maintainability-value').textContent = module.maintainability > 70 ? 'Hoch' : module.maintainability > 40 ? 'Mittel' : 'Niedrig';
-    document.getElementById('maintainability-bar').className = `progress-bar-fill coverage-${module.maintainability}`;
+    document.getElementById('debt-bar').style.width = `${Math.min(module.debt, 200) / 2}%`;
+    
+    const maintainabilityLabel = module.maintainability > 70 ? 'Hoch' : 
+                               module.maintainability > 40 ? 'Mittel' : 'Niedrig';
+    document.getElementById('maintainability-value').textContent = maintainabilityLabel;
+    document.getElementById('maintainability-bar').style.width = `${module.maintainability}%`;
 }
 
 function analyzeLegacy(data, charts) {
@@ -71,7 +88,7 @@ function analyzeLegacy(data, charts) {
 
 function updateLegacyCharts(data, charts) {
     const coverageCtx = document.getElementById('coverage-chart')?.getContext('2d');
-    if (coverageCtx) {
+    if (coverageCtx && data.legacyModules.length > 0) {
         if (charts['coverage-chart']) charts['coverage-chart'].destroy();
         charts['coverage-chart'] = createChart(coverageCtx, 'bar', {
             labels: data.legacyModules.map(m => m.name),
