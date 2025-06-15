@@ -35,7 +35,7 @@ const pageInitialized = {};
 
 async function loadData() {
     try {
-        const response = await fetch('./data.json');
+        const response = await fetch('data.json');
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return await response.json();
     } catch (error) {
