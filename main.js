@@ -75,7 +75,7 @@ async function initApp() {
 function initPage(page, data, charts) {
   const initMap = {
     'home': initHomePage,
-    'testplan': initTestPlanPage, // Fehlende Seite hinzufügen
+    'testplan': initTestPlanPage,
     'automation': initAutomationPage,
     'legacy': initLegacyPage,
     'reporting': initReportingPage,
@@ -85,8 +85,7 @@ function initPage(page, data, charts) {
     'audits': initAuditsPage,
     'rootcause': initRootCausePage,
     'environments': initEnvironmentsPage,
-    'knowledge': initKnowledgePage,
-    'anleitung': () => console.log('Anleitung page not implemented')
+    'knowledge': initKnowledgePage
   };
     
     const initFn = initMap[page];
@@ -103,7 +102,14 @@ function initNavigation() {
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             const page = button.getAttribute('data-page');
-            if (page) showPage(page);
+            if (page) {
+                showPage(page);
+                // Navigation auf kleine Position scrollen
+                document.querySelector('nav').scrollTo({
+                    left: button.offsetLeft - 20,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 }

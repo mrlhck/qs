@@ -1,6 +1,6 @@
 export function renderTable(tableId, headers, rows, rowMapper) {
     const table = document.getElementById(tableId);
-    if (!table) return; // Silently return if table doesn't exist
+    if (!table) return;
     
     table.innerHTML = `
         <thead>

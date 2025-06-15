@@ -36,20 +36,25 @@
         </ul>
     </nav>
 
-    <main class="container mx-auto px-4 py-6 grid grid-cols-12 gap-6">
+    <main class="container mx-auto px-4 py-6">
+        <!-- Alle Seiten wurden angepasst - hier nur die Home-Page als Beispiel -->
         <!-- Home Page -->
-        <section id="home" class="page hidden col-span-12">
+        <section id="home" class="page hidden">
             <h2 class="page-title">Dashboard</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Team</h3>
-                    <table id="team-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="team-table" class="data-table"></table>
+                    </div>
                 </article>
                 
                 <article class="card">
                     <h3 class="card-title">Tests</h3>
-                    <table id="test-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="test-table" class="data-table"></table>
+                    </div>
                     <div id="test-summary" class="mt-4"></div>
                 </article>
                 
@@ -63,15 +68,15 @@
                         </div>
                         <div>
                             <label for="training-topic" class="block font-medium text-sm">Thema</label>
-                            <input type="text" id="training-topic" class="form-input">
+                            <input type="text" id="training-topic" class="form-input"></input>
                         </div>
                         <div>
                             <label for="training-start" class="block font-medium text-sm">Startdatum</label>
-                            <input type="date" id="training-start" class="form-input">
+                            <input type="date" id="training-start" class="form-input"></input>
                         </div>
                         <div>
                             <label for="training-end" class="block font-medium text-sm">Enddatum</label>
-                            <input type="date" id="training-end" class="form-input">
+                            <input type="date" id="training-end" class="form-input"></input>
                         </div>
                         <div>
                             <label for="certification" class="flex items-center">
@@ -83,7 +88,7 @@
                     </form>
                 </article>
                 
-                <article class="card col-span-3">
+                <article class="card">
                     <h3 class="card-title">Schulungsfortschritt</h3>
                     <div class="chart-container">
                         <canvas id="training-chart"></canvas>
@@ -93,14 +98,14 @@
         </section>
 
         <!-- Testplan Page -->
-        <section id="testplan" class="page hidden col-span-12">
+        <section id="testplan" class="page hidden">
             <h2 class="page-title">Testplan Management</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Strukturierte Testpläne stellen sicher, dass alle Funktionen systematisch geprüft werden.</p>
                 <p><strong>Unternehmensnutzen:</strong> Erhöht die Testabdeckung, reduziert Regressionen und dokumentiert Testaktivitäten.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Neuen Testplan erstellen</h3>
                     <form class="space-y-4">
@@ -139,20 +144,22 @@
                 
                 <article class="card">
                     <h3 class="card-title">Aktive Testpläne</h3>
-                    <table id="testplans-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="testplans-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Automation Page -->
-        <section id="automation" class="page hidden col-span-12">
+        <section id="automation" class="page hidden">
             <h2 class="page-title">Testautomatisierung</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Automatisierte Tests beschleunigen Regressionstests und erhöhen die Codequalität.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert manuellen Aufwand, ermöglicht häufigeres Testen und frühzeitige Fehlererkennung.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Automatisierten Test hinzufügen</h3>
                     <form class="space-y-4">
@@ -167,7 +174,7 @@
                         </div>
                         <div>
                             <label for="auto-testname" class="block font-medium text-sm">Testname</label>
-                            <input type="text" id="auto-testname" class="form-input">
+                            <input type="text" id="auto-testname" class="form-input"></input>
                         </div>
                         <div>
                             <label for="auto-status" class="block font-medium text-sm">Status</label>
@@ -204,22 +211,24 @@
                     </div>
                 </article>
                 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Testresultate</h3>
-                    <table id="test-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="test-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Legacy Page -->
-        <section id="legacy" class="page hidden col-span-12">
+        <section id="legacy" class="page hidden">
             <h2 class="page-title">Legacy-Code Analyse</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Legacy-Systeme enthalten oft technische Schulden, die Wartungskosten erhöhen und Innovationen behindern.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert Wartungskosten, verbessert Stabilität und ermöglicht schrittweise Migration zu modernen Architekturen.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Modulanalyse</h3>
                     <div class="space-y-4">
@@ -277,7 +286,7 @@
                     <div id="legacy-analysis-result" class="space-y-4"></div>
                 </article>
                 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Testabdeckung nach Modul</h3>
                     <div class="chart-container">
                         <canvas id="coverage-chart"></canvas>
@@ -287,14 +296,14 @@
         </section>
 
         <!-- Reporting Page -->
-        <section id="reporting" class="page hidden col-span-12">
+        <section id="reporting" class="page hidden">
             <h2 class="page-title">Qualitätsreporting</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Transparente Berichterstattung schafft Vertrauen und ermöglicht datengestützte Entscheidungen.</p>
                 <p><strong>Unternehmensnutzen:</strong> Visualisiert Fortschritt, identifiziert Risikobereiche und dokumentiert Qualitätsinitiativen.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+            <div class="flex flex-col gap-6 mb-6">
                 <article class="card">
                     <h3 class="card-title">Erfolgsrate</h3>
                     <div class="text-3xl font-bold text-blue-600" id="pass-rate"></div>
@@ -319,7 +328,7 @@
                 </article>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Testverteilung nach Sprache</h3>
                     <div class="chart-container">
@@ -334,15 +343,17 @@
                     </div>
                 </article>
                 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Korrekturmaßnahmen (CAPA)</h3>
-                    <table id="capa-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="capa-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- KPIs Page -->
-        <section id="kpis" class="page hidden col-span-12">
+        <section id="kpis" class="page hidden">
             <h2 class="page-title">Qualitätskennzahlen (KPIs)</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> KPIs messen die Effektivität von Qualitätssicherungsmaßnahmen und zeigen Verbesserungspotenziale.</p>
@@ -358,14 +369,14 @@
         </section>
 
         <!-- CAPA Page -->
-        <section id="capa" class="page hidden col-span-12">
+        <section id="capa" class="page hidden">
             <h2 class="page-title">Korrektur- und Vorbeugungsmaßnahmen (CAPA)</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Systematische Problemlösung verhindert wiederkehrende Fehler und verbessert Prozesse nachhaltig.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert Fehlerkosten, verbessert Produktqualität und stärkt Kundenvertrauen.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <div class="flex justify-between items-center">
                         <h3 class="card-title">Neue CAPA erstellen</h3>
@@ -376,7 +387,7 @@
                         <input type="hidden" id="capa-id">
                         <div>
                             <label for="capa-title" class="block font-medium text-sm">Titel</label>
-                            <input type="text" id="capa-title" class="form-input">
+                            <input type="text" id="capa-title" class="form-input"></input>
                         </div>
                         <div>
                             <label for="capa-description" class="block font-medium text-sm">Beschreibung</label>
@@ -404,7 +415,7 @@
                         </div>
                         <div>
                             <label for="capa-due" class="block font-medium text-sm">Fällig am</label>
-                            <input type="date" id="capa-due" class="form-input">
+                            <input type="date" id="capa-due" class="form-input"></input>
                         </div>
                         <button type="button" id="save-capa" class="action-btn">CAPA speichern</button>
                     </form>
@@ -417,12 +428,14 @@
                     </div>
                 </article>
                 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Aktive CAPAs</h3>
-                    <table id="capa-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="capa-table" class="data-table"></table>
+                    </div>
                 </article>
                 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Risikobewertung</h3>
                     <div class="chart-container">
                         <canvas id="capa-risk-chart"></canvas>
@@ -432,14 +445,14 @@
         </section>
 
         <!-- CI/CD Page -->
-        <section id="cicd" class="page hidden col-span-12">
+        <section id="cicd" class="page hidden">
             <h2 class="page-title">CI/CD Pipeline</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Automatisierte Pipelines beschleunigen Softwareauslieferungen und erhöhen Release-Stabilität.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert manuelle Fehler, verkürzt Time-to-Market und ermöglicht häufige Releases.</p>
             </div>
             
-            <div class="grid grid-cols-1 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Jenkins-Verbindung</h3>
                     <button id="test-ci-connection" class="action-btn mb-4">Verbindung testen</button>
@@ -448,26 +461,28 @@
                 
                 <article class="card">
                     <h3 class="card-title">Letzte Builds</h3>
-                    <table id="ci-builds" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="ci-builds" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Audits Page -->
-        <section id="audits" class="page hidden col-span-12">
+        <section id="audits" class="page hidden">
             <h2 class="page-title">Qualitätsaudits</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Systematische Audits stellen die Einhaltung von Qualitätsstandards sicher und identifizieren Verbesserungspotenziale.</p>
                 <p><strong>Unternehmensnutzen:</strong> Sichert Compliance, reduziert Risiken und schafft Vertrauen bei Kunden und Stakeholdern.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Audit planen</h3>
                     <form class="space-y-4">
                         <div>
                             <label for="audit-title" class="block font-medium text-sm">Titel</label>
-                            <input type="text" id="audit-title" class="form-input">
+                            <input type="text" id="audit-title" class="form-input"></input>
                         </div>
                         <div>
                             <label for="audit-type" class="block font-medium text-sm">Audit-Typ</label>
@@ -480,7 +495,7 @@
                         </div>
                         <div>
                             <label for="audit-date" class="block font-medium text-sm">Datum</label>
-                            <input type="date" id="audit-date" class="form-input">
+                            <input type="date" id="audit-date" class="form-input"></input>
                         </div>
                         <div>
                             <label for="audit-responsible" class="block font-medium text-sm">Verantwortlich</label>
@@ -518,22 +533,24 @@
                     </form>
                 </article>
 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Geplante Audits</h3>
-                    <table id="audits-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="audits-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Root Cause Page -->
-        <section id="rootcause" class="page hidden col-span-12">
+        <section id="rootcause" class="page hidden">
             <h2 class="page-title">Root-Cause-Analyse (RCA)</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Systematische Analyse von Problemen, um die zugrunde liegenden Ursachen zu identifizieren und dauerhafte Lösungen zu implementieren.</p>
                 <p><strong>Unternehmensnutzen:</strong> Verhindert das erneute Auftreten von Fehlern, reduziert Kosten durch Wiederholungsfehler und verbessert die Produktqualität.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Neue RCA starten</h3>
                     <form class="space-y-4">
@@ -552,11 +569,11 @@
                         </div>
                         <div>
                             <label for="rca-date" class="block font-medium text-sm">Datum</label>
-                            <input type="date" id="rca-date" class="form-input">
+                            <input type="date" id="rca-date" class="form-input"></input>
                         </div>
                         <div>
                             <label for="rca-responsible" class="block font-medium text-sm">Verantwortlich</label>
-                            <input type="text" id="rca-responsible" class="form-input">
+                            <input type="text" id="rca-responsible" class="form-input"></input>
                         </div>
                         <button type="button" id="add-rca" class="action-btn">RCA starten</button>
                     </form>
@@ -567,27 +584,27 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div>
                             <label class="font-medium">Personen</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                         <div>
                             <label class="font-medium">Methoden</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                         <div>
                             <label class="font-medium">Maschinen</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                         <div>
                             <label class="font-medium">Material</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                         <div>
                             <label class="font-medium">Umgebung</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                         <div>
                             <label class="font-medium">Messung</label>
-                            <input type="text" class="form-input mt-1">
+                            <input type="text" class="form-input mt-1"></input>
                         </div>
                     </div>
                 </article>
@@ -618,22 +635,24 @@
                     </div>
                 </article>
 
-                <article class="card col-span-2">
+                <article class="card">
                     <h3 class="card-title">Laufende Analysen</h3>
-                    <table id="rca-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="rca-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Environments Page -->
-        <section id="environments" class="page hidden col-span-12">
+        <section id="environments" class="page hidden">
             <h2 class="page-title">Testumgebungsmanagement</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Zentralisierte Verwaltung von Testumgebungen stellt sicher, dass stets konsistente und verfügbare Umgebungen für Tests zur Verfügung stehen.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert Wartezeiten, vermeidet Konfigurationsfehler und erhöht die Testeffizienz.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-6">
                 <article class="card">
                     <h3 class="card-title">Umgebung reservieren</h3>
                     <form class="space-y-4">
@@ -648,11 +667,11 @@
                         </div>
                         <div>
                             <label for="environment-user" class="block font-medium text-sm">Benutzer</label>
-                            <input type="text" id="environment-user" class="form-input">
+                            <input type="text" id="environment-user" class="form-input"></input>
                         </div>
                         <div>
                             <label for="environment-duration" class="block font-medium text-sm">Dauer (Stunden)</label>
-                            <input type="number" id="environment-duration" class="form-input" min="1" max="48" value="4">
+                            <input type="number" id="environment-duration" class="form-input" min="1" max="48" value="4"></input>
                         </div>
                         <button type="button" id="reserve-environment" class="action-btn">Reservieren</button>
                     </form>
@@ -665,35 +684,37 @@
                     </div>
                 </article>
 
-                <article class="card col-span-2">
+                <article class="card">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="card-title">Verfügbare Umgebungen</h3>
                         <button id="refresh-environments" class="secondary-btn">Aktualisieren</button>
                     </div>
-                    <table id="environments-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="environments-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
         </section>
 
         <!-- Knowledge Base Page -->
-        <section id="knowledge" class="page hidden col-span-12">
+        <section id="knowledge" class="page hidden">
             <h2 class="page-title">Wissensdatenbank</h2>
             <div class="page-description">
                 <p><strong>Warum ist das wichtig?</strong> Zentrale Sammlung von Wissen und Best Practices ermöglicht Wiederverwendung und beschleunigt Einarbeitung.</p>
                 <p><strong>Unternehmensnutzen:</strong> Reduziert Wissensverlust, fördert Konsistenz und verbessert die Problemlösungseffizienz.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <article class="card lg:col-span-1">
+            <div class="flex flex-col gap-6">
+                <article class="card">
                     <h3 class="card-title">Neuer Artikel</h3>
                     <form class="space-y-4">
                         <div>
                             <label for="article-title" class="block font-medium text-sm">Titel</label>
-                            <input type="text" id="article-title" class="form-input">
+                            <input type="text" id="article-title" class="form-input"></input>
                         </div>
                         <div>
                             <label for="article-tags" class="block font-medium text-sm">Tags (durch Kommas getrennt)</label>
-                            <input type="text" id="article-tags" class="form-input">
+                            <input type="text" id="article-tags" class="form-input"></input>
                         </div>
                         <div>
                             <label for="article-content" class="block font-medium text-sm">Inhalt</label>
@@ -703,11 +724,13 @@
                     </form>
                 </article>
 
-                <article class="card lg:col-span-2">
+                <article class="card">
                     <div class="mb-4">
                         <input type="text" id="search-knowledge" class="form-input" placeholder="Suche nach Titel, Inhalt oder Tags...">
                     </div>
-                    <table id="knowledge-table" class="data-table"></table>
+                    <div class="table-container">
+                        <table id="knowledge-table" class="data-table"></table>
+                    </div>
                 </article>
             </div>
 
