@@ -307,3 +307,29 @@ canvas {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Füge am Ende der Datei hinzu */
+.card.text-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.card.text-center .text-3xl {
+  margin-bottom: 0.5rem;
+}
+
+.text-green-600 { color: #34a853; }
+.text-yellow-600 { color: #f9ab00; }
+.text-red-600 { color: #ea4335; }
+
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (max-width: 768px) {
+  .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
