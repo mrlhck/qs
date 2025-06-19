@@ -27,11 +27,38 @@ function renderManifestSection(data) {
     <div class="manifest-hero">
       <div class="manifest-container">
         <div class="manifest-header">
-          <h1 class="manifest-title">Qualitätsstrategie 2025</h1>
-          <p class="manifest-subtitle">Unser Fahrplan für exzellente Softwarequalität</p>
+          <h1 class="manifest-title">Qualitätssicherung</h1>
+          
+          <!-- Hervorgehobener Hinweis-Bereich -->
+          <div class="manifest-notice bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg mb-6 animate__fadeIn">
+            <p class="manifest-subtitle font-medium">
+              Im Rahmen meiner Auseinandersetzung mit moderner Qualitätssicherung habe ich eine App entwickelt, 
+              in der verschiedene Tools, Strategien und Ansätze aus dem Qualitätsmanagement übersichtlich 
+              dargestellt sind. Diese Inhalte verstehen sich nicht als starre Vorgaben, sondern vielmehr 
+              als mögliche Werkzeuge und Methoden, die flexibel und bedarfsorientiert zur Sicherung und 
+              Verbesserung der Qualität im Unternehmen eingesetzt werden können.
+            </p>
+            <p class="manifest-subtitle mt-3">
+              Ergänzend dazu habe ich eine Roadmap zur Einführung und Weiterentwicklung der Qualitätssicherung 
+              im Unternehmen erstellt. Diese beschreibt in klaren Schritten, wie ich auf Basis des aktuellen 
+              Status quo – inklusive bestehender Herausforderungen wie Legacy-Code, veralteten Datenbanken 
+              und unvollständiger Dokumentation – eine nachhaltige, effektive und moderne Qualitätsstruktur 
+              aufbauen würde.
+            </p>
+            <button 
+              id="scroll-to-roadmap" 
+              class="action-btn mt-4 flex items-center"
+            >
+              Weiter zur Roadmap
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </button>
+          </div>
+          
         </div>
         
-        <div class="manifest-grid">
+        <div class="manifest-grid" id="roadmap-section">
           <div class="manifest-card">
             <div class="manifest-card-header">
               <div class="manifest-number">1</div>
@@ -135,7 +162,21 @@ function renderManifestSection(data) {
       card.classList.add('animate__fadeInUp');
     });
   }, 100);
+  
+  // Add event listener for the scroll button
+  const scrollButton = document.getElementById('scroll-to-roadmap');
+  if (scrollButton) {
+    scrollButton.addEventListener('click', () => {
+      const roadmapSection = document.getElementById('roadmap-section');
+      if (roadmapSection) {
+        roadmapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
 }
+
+// Rest of the code remains the same as before...
+// [renderDashboardSummary, renderTestTrendChart, etc.]
 
 function renderDashboardSummary(data) {
   const summaryContainer = document.getElementById('dashboard-summary');
