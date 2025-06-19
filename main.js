@@ -1,20 +1,61 @@
-// main.js
-import { showPage } from './navigation.js';
+import { renderTable } from './utils.js';
 import { initHomePage } from './home.js';
+import { initTeamPage } from './team.js';
 import { initTestPlanPage } from './testplan.js';
 import { initAutomationPage } from './automation.js';
 import { initLegacyPage } from './legacy.js';
-import { initCapaPage } from './capa.js';
-import { initCiCdPage } from './cicd.js';
 import { initReportingPage } from './reporting.js';
 import { initKpisPage } from './kpis.js';
+import { initCapaPage } from './capa.js';
+import { initCiCdPage } from './cicd.js';
 import { initAuditsPage } from './audits.js';
 import { initRootCausePage } from './rootcause.js';
 import { initEnvironmentsPage } from './environments.js';
-import { initKnowledgePage } from './knowledge.js';
-import { TeamManager } from './team.js';
 
-// Globale Datenstruktur
+export class TeamManager {
+  constructor(members = []) {
+    this.members = members;
+  }
+
+  addMember(member) {
+    this.members.push(member);
+  }
+
+  removeMember(name) {
+    this.members = this.members.filter(member => member.name !== name);
+  }
+
+  updateMember(name, updatedData) {
+    const index = this.members.findIndex(member => member.name === name);
+    if (index !== -1) {
+      this.members[index] = { ...this.members[index], ...updatedData };
+    }
+  }
+
+  getMember(name) {
+    return this.members.find(member => member.name === name);
+  }
+
+  getActiveMembers() {
+    return this.members.filter(member => member.status === 'Aktiv');
+  }
+
+  getAverageTrainingProgress() {
+    if (this.members.length === 0) return 0;
+    const total = this.members.reduce((sum, member) => sum + member.training_progress, 0);
+    return Math.round(total / this.members.length);
+  }
+}
+
+export function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
 const qualityData = {
   tests: [],
   correctiveActions: [],
@@ -25,11 +66,10 @@ const qualityData = {
   legacyModules: [],
   audits: [],
   environments: [],
-  knowledgeBase: [],
-  rootCauseAnalysis: []
+  rootCauseAnalysis: [],
+  team: []
 };
 
-// Daten global verfügbar machen
 window.qualityData = qualityData;
 
 const chartInstances = {};
@@ -59,29 +99,29 @@ function deepMerge(target, source) {
 }
 
 async function initApp() {
-  // Daten laden
   const loadedData = await loadData();
   if (!loadedData) return;
   
-  // Team-Daten in Manager laden
+  // TeamManager initialisieren
   if (loadedData.team && Array.isArray(loadedData.team)) {
     loadedData.team.forEach(member => {
       qualityData.teamManager.addMember(member);
     });
+    qualityData.team = [...loadedData.team];
   }
   
-  // Restliche Daten in die globale Struktur mergen
+  // Restliche Daten mergen
   const { team, ...restData } = loadedData;
   deepMerge(qualityData, restData);
   
   // Navigation initialisieren
   initNavigation();
   
-  // Home-Seite initialisieren
+  // Homepage initialisieren
   initHomePage(qualityData, chartInstances);
   pageInitialized.home = true;
   
-  // Event-Listener für Navigation
+  // Event-Listener für Navigation hinzufügen
   document.querySelectorAll('.nav-btn').forEach(button => {
     button.addEventListener('click', () => {
       const page = button.getAttribute('data-page');
@@ -97,17 +137,12 @@ async function initApp() {
     });
   });
 
-  // Artikel-Modal Event
-  document.getElementById('close-article')?.addEventListener('click', () => {
-    document.getElementById('article-view-modal').classList.add('hidden');
-  });
-
-  // Startseite anzeigen
+  // Homepage als Startseite anzeigen
   showPage('home');
 }
 
 function initPage(page, data, charts) {
-  const initMap = {
+  const pageHandlers = {
     'home': initHomePage,
     'testplan': initTestPlanPage,
     'automation': initAutomationPage,
@@ -119,12 +154,12 @@ function initPage(page, data, charts) {
     'audits': initAuditsPage,
     'rootcause': initRootCausePage,
     'environments': initEnvironmentsPage,
-    'knowledge': initKnowledgePage
+    'team': initTeamPage
   };
   
-  const initFn = initMap[page];
-  if (initFn) {
-    initFn(data, charts);
+  const handler = pageHandlers[page];
+  if (handler) {
+    handler(data, charts);
   } else {
     console.warn(`No initialization function for page: ${page}`);
   }
@@ -146,5 +181,6 @@ function initNavigation() {
     });
   });
 }
+
 
 document.addEventListener('DOMContentLoaded', initApp);
