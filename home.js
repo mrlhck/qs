@@ -58,6 +58,16 @@ function renderManifestSection(data) {
           
         </div>
         
+        <!-- Hinweis zur Roadmap-Interaktion -->
+        <div class="manifest-notice bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg mb-6 animate__fadeIn">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            <p class="text-yellow-700 font-medium">Tipp: Klicken Sie auf die Punkte der Roadmap, um detaillierte Informationen zu erhalten.</p>
+          </div>
+        </div>
+        
         <div class="manifest-grid" id="roadmap-section">
           <div class="manifest-card">
             <div class="manifest-card-header">
@@ -160,6 +170,8 @@ function renderManifestSection(data) {
     cards.forEach((card, index) => {
       card.style.animationDelay = `${index * 0.1}s`;
       card.classList.add('animate__fadeInUp');
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => showRoadmapDetails(index));
     });
   }, 100);
   
@@ -175,8 +187,154 @@ function renderManifestSection(data) {
   }
 }
 
-// Rest of the code remains the same as before...
-// [renderDashboardSummary, renderTestTrendChart, etc.]
+function showRoadmapDetails(index) {
+  const roadmapDetails = [
+    {
+      title: "Stabilisierung und Modernisierung des Qualitätsmanagementsystems",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Prozessanalyse:</strong> Durchführung von Workshops mit allen Abteilungen zur Identifikation von Schwachstellen</li>
+          <li><strong>Standardisierung:</strong> Entwicklung eines QM-Handbuchs mit klar definierten Prozessen und Verantwortlichkeiten</li>
+          <li><strong>Quick Wins:</strong> Implementierung von Prüf-Checklisten innerhalb von 4 Wochen</li>
+          <li><strong>KVP-Einführung:</strong> Monatliche Review-Meetings mit messbaren Zielen und Aktionsplänen</li>
+          <li><strong>Tools:</strong> Einführung von Jira für Issue-Tracking und Confluence für Dokumentation</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Phase 1 (1-4 Wochen):</strong> Prozessanalyse und Identifikation von Quick Wins</li>
+          <li><strong>Phase 2 (5-8 Wochen):</strong> Entwicklung von Standards und Dokumentation</li>
+          <li><strong>Phase 3 (ab Woche 9):</strong> Implementierung des KVP-Prozesses</li>
+        </ul>
+      `
+    },
+    {
+      title: "Umgang mit Legacy-Code und veralteten Datenbanken",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Risikoanalyse:</strong> Bewertung aller Legacy-Systeme nach Geschäftskritikalität und technischem Zustand</li>
+          <li><strong>Teststrategie:</strong> Entwicklung von charakterisierenden Tests für Kernfunktionalitäten</li>
+          <li><strong>Refactoring:</strong> Schrittweise Modernisierung mit Strangler-Pattern und Microservices</li>
+          <li><strong>Datenbankmigration:</strong> Phasenweise Migration zu modernen Datenbanktechnologien</li>
+          <li><strong>Monitoring:</strong> Einrichtung von Code-Quality-Metriken und technischen Schulden-Trackern</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Quartal 1:</strong> Risikoanalyse und Priorisierung</li>
+          <li><strong>Quartal 2:</strong> Entwicklung von Sicherheitstests für kritische Systeme</li>
+          <li><strong>Quartal 3-4:</strong> Pilot-Migration eines ausgewählten Legacy-Moduls</li>
+        </ul>
+      `
+    },
+    {
+      title: "Verbesserung der Dokumentationslage",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Standardisierung:</strong> Einführung von Markdown-basierten Dokumentationsvorlagen</li>
+          <li><strong>Zentralisierung:</strong> Aufbau eines Dokumentations-Hubs mit Confluence</li>
+          <li><strong>Automatisierung:</strong> Integration von Swagger für API-Dokumentation und Doxygen für Code</li>
+          <li><strong>Schulungen:</strong> Quartalsweise Workshops zur Dokumentationserstellung</li>
+          <li><strong>Governance:</strong> Ernennung von Dokumentationsverantwortlichen pro Team</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Monat 1:</strong> Entwicklung von Standards und Vorlagen</li>
+          <li><strong>Monat 2:</strong> Einrichtung des Dokumentations-Hubs</li>
+          <li><strong>Monat 3:</strong> Erste Schulungen und Rollout in Pilot-Teams</li>
+          <li><strong>Monat 4-6:</strong> Unternehmensweite Einführung</li>
+        </ul>
+      `
+    },
+    {
+      title: "Qualitätsanalyse und kontinuierliche Verbesserung",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Dashboard:</strong> Implementierung eines Echtzeit-Qualitätsdashboards mit Grafana</li>
+          <li><strong>Metriken:</strong> Definition von KPIs für Code Coverage, Fehlerraten und Zykluszeiten</li>
+          <li><strong>Root-Cause-Analyse:</strong> Einführung von 5-Why und Fishbone-Diagrammen für kritische Fehler</li>
+          <li><strong>Feedback-Loops:</strong> Wöchentliche Retrospektiven mit Maßnahmenableitung</li>
+          <li><strong>Integration:</strong> Verknüpfung von Qualitätsmetriken mit Release-Entscheidungen</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Woche 1-4:</strong> Definition der KPIs und Metriken</li>
+          <li><strong>Woche 5-8:</strong> Entwicklung des Dashboards</li>
+          <li><strong>Woche 9-12:</strong> Einführung der Analyse-Methoden</li>
+          <li><strong>Ab Woche 13:</strong> Kontinuierliche Optimierung</li>
+        </ul>
+      `
+    },
+    {
+      title: "Aufbau automatisierter Testumgebungen",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>CI/CD-Pipelines:</strong> Einrichtung von Jenkins/GitLab CI für automatisierte Builds und Tests</li>
+          <li><strong>Test-Frameworks:</strong> Auswahl von Cypress für UI-Tests und Jest für Unit-Tests</li>
+          <li><strong>Testdatenmanagement:</strong> Implementierung von Datenmaskierung und Generierungstools</li>
+          <li><strong>Parallelisierung:</strong> Containerisierung mit Docker für parallele Testausführung</li>
+          <li><strong>Reporting:</strong> Automatisierte Testberichte in Slack und E-Mail</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Quartal 1:</strong> Einrichtung der CI/CD-Pipelines</li>
+          <li><strong>Quartal 2:</strong> Implementierung der Test-Frameworks</li>
+          <li><strong>Quartal 3:</strong> Automatisierung der Testdatenverwaltung</li>
+          <li><strong>Quartal 4:</strong> Vollständige Parallelisierung und Optimierung</li>
+        </ul>
+      `
+    },
+    {
+      title: "Schulung und Befähigung des Teams",
+      details: `
+        <h4 class="font-bold mb-2">Konkrete Umsetzungsstrategie:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Bedarfserhebung:</strong> Durchführung von Skills-Assessments pro Team</li>
+          <li><strong>Schulungsplan:</strong> Entwicklung eines individuellen Weiterbildungsplans pro Mitarbeiter</li>
+          <li><strong>Ambassador-Programm:</strong> Ernennung von Qualitätsbotschaftern pro Abteilung</li>
+          <li><strong>Community:</strong> Einrichtung von monatlichen "Quality Guild" Treffen</li>
+          <li><strong>Fehlerkultur:</strong> Implementierung von blameless Post-Mortems</li>
+        </ul>
+        <h4 class="font-bold mt-4 mb-2">Zeitplan:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><strong>Monat 1-2:</strong> Skills-Assessment und Bedarfsanalyse</li>
+          <li><strong>Monat 3-4:</strong> Entwicklung individueller Schulungspläne</li>
+          <li><strong>Monat 5:</strong> Start des Ambassador-Programms</li>
+          <li><strong>Monat 6:</strong> Erste Quality Guild Sitzung</li>
+        </ul>
+      `
+    }
+  ];
+
+  const detail = roadmapDetails[index];
+  const overlayHTML = `
+    <div class="roadmap-overlay fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white p-6 border-b flex justify-between items-center">
+          <h3 class="text-xl font-bold text-gray-800">${detail.title}</h3>
+          <button class="text-gray-500 hover:text-gray-700 text-3xl" onclick="closeRoadmapDetail()">&times;</button>
+        </div>
+        <div class="p-6 prose max-w-none">
+          ${detail.details}
+        </div>
+        <div class="sticky bottom-0 bg-white p-4 border-t text-right">
+          <button class="action-btn" onclick="closeRoadmapDetail()">Schließen</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', overlayHTML);
+  
+  // Globale Funktion zum Schließen des Overlays
+  window.closeRoadmapDetail = function() {
+    const overlay = document.querySelector('.roadmap-overlay');
+    if (overlay) overlay.remove();
+  };
+}
 
 function renderDashboardSummary(data) {
   const summaryContainer = document.getElementById('dashboard-summary');
